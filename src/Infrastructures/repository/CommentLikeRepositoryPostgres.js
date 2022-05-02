@@ -7,7 +7,7 @@ class CommentLikeRepositoryPostgres extends CommentLikeRepository {
     this._idGenerator = idGenerator;
   }
 
-  async toggleCommentLike(commentId, owner) {
+  async toggleCommentLikes(commentId, owner) {
     const id = `comment_like-${this._idGenerator()}`;
 
     const searchQuery = {
