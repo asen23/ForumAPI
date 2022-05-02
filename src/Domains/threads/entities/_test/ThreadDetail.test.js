@@ -40,6 +40,7 @@ describe('a ThreadDetail entities', () => {
         content: 'content',
         username: 'username',
         date: 'date',
+        likeCount: 1,
         isDeleted: false,
         replies: [{
           id: 'id',

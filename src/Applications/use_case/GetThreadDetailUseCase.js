@@ -1,9 +1,10 @@
 const ThreadDetail = require('../../Domains/threads/entities/ThreadDetail');
 
-class GetThreadUseCase {
-  constructor({ threadRepository, commentRepository, replyRepository }) {
+class GetThreadDetailUseCase {
+  constructor({ threadRepository, commentRepository, commentLikeRepository, replyRepository }) {
     this._threadRepository = threadRepository;
     this._commentRepository = commentRepository;
+    this._commentLikeRepository = commentLikeRepository;
     this._replyRepository = replyRepository;
   }
 
@@ -13,12 +14,15 @@ class GetThreadUseCase {
     const comments = await this._commentRepository.getCommentsByThreadId(id);
     const commentIds = comments.map((comment) => comment.id);
     const replies = await this._replyRepository.getRepliesByCommentIds(commentIds);
+    const commentLikes = await this._commentLikeRepository.getCommentLikesByCommentIds(commentIds);
     const commentsWithReplies = comments.map((comment) => {
       const commentReplies = replies.filter((reply) => reply.comment_id === comment.id);
+      const likeCount = commentLikes.filter((commentLike) => commentLike.comment_id === comment.id).length;
       return {
         ...comment,
         isDeleted: comment.is_deleted,
         date: comment.date.toISOString(),
+        likeCount,
         replies: commentReplies.map((reply) => ({
           ...reply,
           isDeleted: reply.is_deleted,
@@ -26,6 +30,7 @@ class GetThreadUseCase {
         })),
       };
     });
+    console.log(commentsWithReplies);
 
     return new ThreadDetail({
       ...threadDetail,
@@ -35,4 +40,4 @@ class GetThreadUseCase {
   }
 }
 
-module.exports = GetThreadUseCase;
+module.exports = GetThreadDetailUseCase;

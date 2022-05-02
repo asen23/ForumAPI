@@ -19,6 +19,7 @@ describe('a CommentDetail entities', () => {
       content: true,
       username: 'tes',
       date: 1.0,
+      likeCount: 'yes',
       isDeleted: 'yes',
       replies: true,
     };
@@ -34,6 +35,7 @@ describe('a CommentDetail entities', () => {
       content: 'Dicoding Indonesia',
       username: 'user',
       date: 'date',
+      likeCount: 1,
       isDeleted: false,
       replies: [{
         id: 'id',
@@ -45,13 +47,14 @@ describe('a CommentDetail entities', () => {
     };
 
     // Action
-    const { content, id, username, date, replies } = new CommentDetail(payload);
+    const { content, id, username, date, likeCount, replies } = new CommentDetail(payload);
 
     // Assert
     expect(id).toEqual(payload.id);
     expect(content).toEqual(payload.content);
     expect(username).toEqual(payload.username);
     expect(date).toEqual(payload.date);
+    expect(likeCount).toEqual(payload.likeCount);
     expect(replies[0]).toEqual(new ReplyDetail(payload.replies[0]));
   });
 
@@ -62,6 +65,7 @@ describe('a CommentDetail entities', () => {
       content: 'Dicoding Indonesia',
       username: 'user-123',
       date: 'date',
+      likeCount: 1,
       isDeleted: true,
       replies: [{
         id: 'id',
@@ -73,13 +77,14 @@ describe('a CommentDetail entities', () => {
     };
 
     // Action
-    const { content, id, username, date, replies } = new CommentDetail(payload);
+    const { content, id, username, date, likeCount, replies } = new CommentDetail(payload);
 
     // Assert
     expect(id).toEqual(payload.id);
     expect(content).toEqual('**komentar telah dihapus**');
     expect(username).toEqual(payload.username);
     expect(date).toEqual(payload.date);
+    expect(likeCount).toEqual(payload.likeCount);
     expect(replies[0]).toEqual(new ReplyDetail(payload.replies[0]));
   });
 });
