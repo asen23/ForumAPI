@@ -30,7 +30,6 @@ class GetThreadDetailUseCase {
         })),
       };
     });
-    console.log(commentsWithReplies);
 
     return new ThreadDetail({
       ...threadDetail,

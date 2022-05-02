@@ -68,6 +68,32 @@ describe('/threads/{threadId}/comments/{commentId}/likes endpoint', () => {
       expect(responseJson.status).toEqual('success');
     });
 
+    it('should response 200 when called twice', async () => {
+      // Arrange
+      const server = await createServer(container);
+
+      // Action
+      await server.inject({
+        method: 'PUT',
+        url: '/threads/thread-123/comments/comment-123/likes',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const response = await server.inject({
+        method: 'PUT',
+        url: '/threads/thread-123/comments/comment-123/likes',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      // Assert
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+    });
+
     it('should response 404 when thread id does not exist', async () => {
       // Arrange
       const server = await createServer(container);
