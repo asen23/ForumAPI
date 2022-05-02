@@ -1,0 +1,6 @@
+/.env
+/.vscode
+/config
+/coverage
+/ForumAPI.zip
+/node_modules
