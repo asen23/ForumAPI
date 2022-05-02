@@ -26,7 +26,7 @@ describe('a AddedReply entities', () => {
   it('should create reply object correctly', () => {
     // Arrange
     const payload = {
-      id: 'dicoding',
+      id: 'reply-123',
       content: 'Dicoding Indonesia',
       owner: 'user-123',
     };
