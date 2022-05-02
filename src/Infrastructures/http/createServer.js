@@ -6,6 +6,7 @@ const users = require('../../Interfaces/http/api/users');
 const authentications = require('../../Interfaces/http/api/authentications');
 const threads = require('../../Interfaces/http/api/threads');
 const comments = require('../../Interfaces/http/api/comments');
+const commentLikes = require('../../Interfaces/http/api/comment_likes');
 const replies = require('../../Interfaces/http/api/replies');
 
 const createServer = async (container) => {
@@ -51,6 +52,10 @@ const createServer = async (container) => {
       options: { container },
     },
     {
+      plugin: commentLikes,
+      options: { container },
+    },
+    {
       plugin: replies,
       options: { container },
     },
@@ -65,6 +70,7 @@ const createServer = async (container) => {
       const translatedError = DomainErrorTranslator.translate(response);
 
       // penanganan client error secara internal.
+      console.log(response);
       if (translatedError instanceof ClientError) {
         const newResponse = h.response({
           status: 'fail',

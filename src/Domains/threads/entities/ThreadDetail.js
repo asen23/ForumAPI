@@ -1,6 +1,6 @@
 const CommentDetail = require('../../comments/entities/CommentDetail');
 
-class Thread {
+class ThreadDetail {
   constructor(payload) {
     this._verifyPayload(payload);
 
@@ -35,4 +35,4 @@ class Thread {
   }
 }
 
-module.exports = Thread;
+module.exports = ThreadDetail;

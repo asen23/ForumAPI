@@ -4,7 +4,7 @@ class CommentDetail {
   constructor(payload) {
     this._verifyPayload(payload);
 
-    const { id, content, username, date, isDeleted, replies } = payload;
+    const { id, content, username, date, likeCount, isDeleted, replies } = payload;
 
     this.id = id;
     this.content = content;
@@ -13,14 +13,15 @@ class CommentDetail {
     }
     this.username = username;
     this.date = date;
+    this.likeCount = likeCount;
     this.replies = [];
     for (const reply of replies) {
       this.replies.push(new ReplyDetail(reply));
     }
   }
 
-  _verifyPayload({ id, content, username, date, isDeleted, replies }) {
-    if (!id || !content || !username || !date || isDeleted === undefined || replies === undefined) {
+  _verifyPayload({ id, content, username, date, likeCount, isDeleted, replies }) {
+    if (!id || !content || !username || !date || likeCount === undefined || isDeleted === undefined || replies === undefined) {
       throw new Error('COMMENTDETAIL.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
@@ -29,6 +30,7 @@ class CommentDetail {
       typeof content !== 'string' ||
       typeof username !== 'string' ||
       typeof date !== 'string' ||
+      typeof likeCount !== 'number' ||
       typeof isDeleted !== 'boolean' ||
       replies.constructor !== Array
     ) {

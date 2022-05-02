@@ -1,9 +1,9 @@
-const ThreadRepository = require('../../Domains/threads/ThreadRepository');
+const ReplyRepository = require('../../Domains/replies/ReplyRepository');
 const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
 const AddedReply = require('../../Domains/replies/entities/AddedReply');
 
-class ThreadRepositoryPostgres extends ThreadRepository {
+class ReplyRepositoryPostgres extends ReplyRepository {
   constructor(pool, idGenerator) {
     super();
     this._pool = pool;
@@ -71,4 +71,4 @@ class ThreadRepositoryPostgres extends ThreadRepository {
   }
 }
 
-module.exports = ThreadRepositoryPostgres;
+module.exports = ReplyRepositoryPostgres;
